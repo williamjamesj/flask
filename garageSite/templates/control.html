@@ -13,7 +13,11 @@
 <body>
     <div class="container-fluid">
         <h1>Garage Door Control</h1>
-        <button class="btn btn-primary" onclick="doorControl('toggle');">Toggle Garage Door</button>
+        <button class="btn btn-outline-dark" onclick="doorControl('check');">Check Garage Door Status</button><br><br>
+        <button class="btn btn-outline-dark" onclick="doorControl('toggle');">Toggle Garage Door</button><br><br>
+        <button class="btn btn-outline-dark" onclick="doorControl('open');">Open Garage Door</button><br><br>
+        <button class="btn btn-outline-dark" onclick="doorControl('close');">Close Garage Door</button><br><br>
+        <div id="alertplaceholder"></div>
     </div>
 </body>
 </html>
