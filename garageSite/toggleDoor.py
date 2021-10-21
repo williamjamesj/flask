@@ -1,18 +1,24 @@
-import RPi.GPIO as GPIO
+from settings import DEBUG
 from time import sleep
 
-GPIO.setmode(GPIO.BOARD)
-controlPin = 7
-lowerSensorPin = 12 # The lower sensor on the door, if active, indicates the door is closed.
-higherSensorPin = 16 # The higher sensor on the door, if active, indicates the door is open.
-GPIO.setup(controlPin, GPIO.OUT) #Garage Switch
-GPIO.setup(lowerSensorPin, GPIO.IN) # Lower sensor
-GPIO.setup(higherSensorPin, GPIO.IN) # Upper sensor
-
-def toggleDoor():
-    GPIO.output(controlPin, True)
-    sleep(1)
-    GPIO.output(controlPin, False)
+if not DEBUG:
+    import RPi.GPIO as GPIO
+    GPIO.setmode(GPIO.BOARD)
+    controlPin = 7
+    lowerSensorPin = 12 # The lower sensor on the door, if active, indicates the door is closed.
+    higherSensorPin = 16 # The higher sensor on the door, if active, indicates the door is open.
+    GPIO.setup(controlPin, GPIO.OUT) #Garage Switch
+    GPIO.setup(lowerSensorPin, GPIO.IN) # Lower sensor
+    GPIO.setup(higherSensorPin, GPIO.IN) # Upper sensor
+else:
+    print(" * Garage door DEBUG on. ")
+def toggle():
+    if DEBUG:
+        print("Toggled!")
+    else:
+        GPIO.output(controlPin, True)
+        sleep(1)
+        GPIO.output(controlPin, False)
     return "Success"
 
 def getStatus():
@@ -27,7 +33,7 @@ def getStatus():
 
 def open():
     if getStatus() == "The Door is Closed":
-        toggleDoor()
+        toggle()
         incrementer = 0
         while getStatus() != "The Door is Open":
             sleep(1) # Wait until the door is opened to send the response.
@@ -42,7 +48,7 @@ def open():
 
 def close():
     if getStatus() == "The Door is Open":
-        toggleDoor()
+        toggle()
         incrementer = 0
         while getStatus() != "The Door is Closed":
             sleep(1) # Wait until the door is opened to send the response.
