@@ -9,7 +9,7 @@ from flask import Flask, render_template, jsonify, request # Import flask and re
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "hlpxQom-si2HPNdMvDQZ4g"
+app.config["SECRET_KEY"] = "hlpxQom-si2HPNdMvDQZ4g" # Required for session variables, which aren't used.
 DATABASE = databaseConnection("eventDatabase.db")
 
 @app.route("/")
