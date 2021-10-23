@@ -2,6 +2,8 @@ import time # Import required python libraries.
 from datetime import datetime
 import math
 
+import os
+
 from databaseController import databaseConnection # Import database utilities
 from toggleDoor import getStatus, open, close, toggle # Import door opening commands
 

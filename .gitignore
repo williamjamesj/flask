@@ -1,3 +1,6 @@
 venv/
 __pycache__/
 eventDatabase.db
+*.db
+*.pyc
+logs/

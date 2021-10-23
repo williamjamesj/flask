@@ -6,7 +6,7 @@ function doorControl(action) {
     dataForServer = {"action":action.toString()};
     $.ajax({
         type: "POST",
-        url: "/doorControl",
+        url: "./doorControl",
         data: JSON.stringify(dataForServer),
         contentType: "application/json",
         dataType: "json",

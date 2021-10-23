@@ -1,8 +1,10 @@
 import sqlite3 # Imports the built-in SQLite library.
+import os
+import sys
 
 class databaseConnection():
     def __init__(self,DBname): # Connects once to the database when the object is initialised.
-        self.connection = sqlite3.connect(DBname,check_same_thread=False) # check_same_thread must be false, otherwise the connection cannot be used across Flask threads.
+        self.connection = sqlite3.connect(os.path.join(os.path.dirname(__file__),DBname),check_same_thread=False) # check_same_thread must be false, otherwise the connection cannot be used across Flask threads.
         return
     def insert(self,type,ip,time,status):
         self.connection.execute("INSERT INTO events (eventType, eventIP, eventTime, eventStatus) VALUES (?,?,?,?)",(type,ip,time,status))
