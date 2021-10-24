@@ -20,10 +20,8 @@ def controlPage(): # This is the front-facing page that allows the users to cont
 
 @app.route("/doorControl", methods=["POST","GET"]) # No webpage is attached to this URL, but it control the door movement.
 def doorControl():
-    print(request)
     status = "nothing"
     if request.method == "POST":
-        print(request.get_json(["action"]))
         if request.get_json()["action"] == "toggle":
             status = toggle()
             DATABASE.insert("Door toggled.",request.remote_addr,math.floor(time.time()),status)
@@ -41,5 +39,4 @@ def doorControl():
 @app.route("/doorHistory")
 def doorHistory():
     data = DATABASE.query()
-    print(data)
     return render_template("history.html",data=data,datetime=datetime)
