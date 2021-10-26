@@ -3,8 +3,8 @@ from time import sleep
 
 if not DEBUG:
     import RPi.GPIO as GPIO
-    GPIO.setmode(GPIO.BOARD)
-    controlPin = 7
+    GPIO.setmode(GPIO.BOARD) # Configure RPi.GPIO to recognise the pins as they are numbered on the board
+    controlPin = 7 # Raising this pin toggles the garage door. Must be lowered after use.
     lowerSensorPin = 12 # The lower sensor on the door, if active, indicates the door is closed.
     higherSensorPin = 16 # The higher sensor on the door, if active, indicates the door is open.
     GPIO.setup(controlPin, GPIO.OUT) #Garage Switch
@@ -16,7 +16,7 @@ def toggle():
     if DEBUG:
         print("Toggled!")
     else:
-        GPIO.output(controlPin, True)
+        GPIO.output(controlPin, True) # Toggles the garage door.
         sleep(1)
         GPIO.output(controlPin, False)
     return "Success"

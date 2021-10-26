@@ -15,7 +15,7 @@ app.config["SECRET_KEY"] = "hlpxQom-si2HPNdMvDQZ4g" # Required for session varia
 DATABASE = databaseConnection("eventDatabase.db")
 
 @app.route("/")
-def controlPage(): # This is the front-facing page that allows the users to control the door.
+def controlPage(): # This is the front-end page that allows the users to control the door.
     return render_template("control.html")
 
 @app.route("/doorControl", methods=["POST","GET"]) # No webpage is attached to this URL, but it control the door movement.
@@ -24,16 +24,16 @@ def doorControl():
     if request.method == "POST":
         if request.get_json()["action"] == "toggle":
             status = toggle()
-            DATABASE.insert("Door toggled.",request.remote_addr,math.floor(time.time()),status)
+            DATABASE.insert("Door toggled.",request.remote_addr,math.floor(time.time()),status) # Each of the insert functions inserts the relevant description of the action, the IP address, the time the response was sent and the response that was sent to the client.
         elif request.get_json()["action"] == "check":
-            DATABASE.insert("Door check.",request.remote_addr,math.floor(time.time()),status)
             status = getStatus()
+            DATABASE.insert("Door check.",request.remote_addr,math.floor(time.time()),status)
         elif request.get_json()["action"] == "open":
-            DATABASE.insert("Door open.",request.remote_addr,math.floor(time.time()),status)
             status = open()
+            DATABASE.insert("Door open.",request.remote_addr,math.floor(time.time()),status)
         elif request.get_json()["action"] == "close":
-            DATABASE.insert("Door close.",request.remote_addr,math.floor(time.time()),status)
             status = close()
+            DATABASE.insert("Door close.",request.remote_addr,math.floor(time.time()),status)
     return jsonify({"status":status})
 
 @app.route("/doorHistory")
